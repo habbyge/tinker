@@ -39,20 +39,28 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.zip.GZIPOutputStream;
 
+// Dexdiff 算法
+// 了解增量更新的人应该知道 bsdiff，bsdiff 是无视文件格式，生成两个二进制文件的差异文件。dexdiff 是基于 bsdiff，
+// 并且进行了针对 dex 文件格式的优化。Tinker 除了支持 Dex 修复之外，还支持 so 修复，只不过 so 的差分包，是直接
+// 使用的 bsdiff 算法生成的。
+// 腾讯 QZone Muitidex 方案、Multidex 方案是 基于 ClassLoader 的 纯 Java 实现的重启生效的热修复方案.
+
 /**
- * Java Binary Diff utility. Based on bsdiff (v4.2) by Colin Percival (see http://www.daemonology.net/bsdiff/ ) and distributed under BSD license.
- * Running this on large files will probably require an increase of the default maximum heap size (use java -Xmx300m)
+ * Java Binary Diff utility. Based on bsdiff (v4.2) by Colin Percival 
+ * (see http://www.daemonology.net/bsdiff/ ) and distributed under BSD license.
+ * Running this on large files will probably require an increase of the default 
+ * maximum heap size (use java -Xmx300m)
  */
 public class BSDiff {
-
     //private static final String VERSION = "jbdiff-0.1.0.1";
 
     // This is
-    private static final byte[] MAGIC_BYTES = new byte[]{0x4D, 0x69, 0x63,
-        0x72, 0x6F, 0x4D, 0x73, 0x67};
+    private static final byte[] MAGIC_BYTES = new byte[] {
+        0x4D, 0x69, 0x63,
+        0x72, 0x6F, 0x4D, 0x73, 0x67
+    };
 
     private static void split(int[] arrayI, int[] arrayV, int start, int len, int h) {
-
         int i, j, k, x, tmp, jj, kk;
 
         if (len < 16) {
@@ -228,10 +236,11 @@ public class BSDiff {
 
 
     /**
-     * 分别将 oldBufd[start..oldSize] 和 oldBufd[end..oldSize] 与  newBuf[newBufOffset...newSize] 进行匹配，
-     * 返回他们中的最长匹配长度，并且将最长匹配的开始位置记录到pos.value中。
+     * 分别将 oldBufd[start..oldSize] 和 oldBufd[end..oldSize] 与  newBuf[newBufOffset...newSize] 
+     * 进行匹配，返回他们中的最长匹配长度，并且将最长匹配的开始位置记录到pos.value中。
      */
-    private static int search(int[] arrayI, byte[] oldBuf, int oldSize, byte[] newBuf, int newSize, int newBufOffset, int start, int end, IntByRef pos) {
+    private static int search(int[] arrayI, byte[] oldBuf, int oldSize, byte[] newBuf, 
+                              int newSize, int newBufOffset, int start, int end, IntByRef pos) {
 
         if (end - start < 2) {
             int x = matchlen(oldBuf, oldSize, arrayI[start], newBuf, newSize, newBufOffset);
@@ -249,7 +258,8 @@ public class BSDiff {
         // binary search
         int x = start + (end - start) / 2;
         if (memcmp(oldBuf, oldSize, arrayI[x], newBuf, newSize, newBufOffset) < 0) {
-            return search(arrayI, oldBuf, oldSize, newBuf, newSize, newBufOffset, x, end, pos);  // Calls itself recursively
+            // Calls itself recursively
+            return search(arrayI, oldBuf, oldSize, newBuf, newSize, newBufOffset, x, end, pos);  
         } else {
             return search(arrayI, oldBuf, oldSize, newBuf, newSize, newBufOffset, start, x, pos);
         }
@@ -257,9 +267,11 @@ public class BSDiff {
 
 
     /**
-     * Count the number of bytes that match in oldBuf[oldOffset...oldSize] and newBuf[newOffset...newSize]
+     * Count the number of bytes that match in oldBuf[oldOffset...oldSize] 
+     * and newBuf[newOffset...newSize]
      */
-    private static int matchlen(byte[] oldBuf, int oldSize, int oldOffset, byte[] newBuf, int newSize, int newOffset) {
+    private static int matchlen(byte[] oldBuf, int oldSize, int oldOffset, 
+                                byte[] newBuf, int newSize, int newOffset) {
 
         int end = Math.min(oldSize - oldOffset, newSize - newOffset);
         for (int i = 0; i < end; i++) {
@@ -275,7 +287,8 @@ public class BSDiff {
      *
      * return 1 if s1[s1offset...s1Size] is bigger than s2[s2offset...s2Size] otherwise return -1
      */
-    private static int memcmp(byte[] s1, int s1Size, int s1offset, byte[] s2, int s2Size, int s2offset) {
+    private static int memcmp(byte[] s1, int s1Size, int s1offset, 
+                              byte[] s2, int s2Size, int s2offset) {
 
         int n = s1Size - s1offset;
 
@@ -298,7 +311,9 @@ public class BSDiff {
         InputStream newInputStream = new BufferedInputStream(new FileInputStream(newFile));
         OutputStream diffOutputStream = new FileOutputStream(diffFile);
         try {
-            byte[] diffBytes = bsdiff(oldInputStream, (int) oldFile.length(), newInputStream, (int) newFile.length());
+            byte[] diffBytes = bsdiff(oldInputStream, (int) oldFile.length(), 
+                                      newInputStream, (int) newFile.length());
+
             diffOutputStream.write(diffBytes);
         } finally {
             diffOutputStream.close();
@@ -306,7 +321,9 @@ public class BSDiff {
     }
 
 
-    public static byte[] bsdiff(InputStream oldInputStream, int oldsize, InputStream newInputStream, int newsize) throws IOException {
+    public static byte[] bsdiff(InputStream oldInputStream, int oldsize, 
+                                InputStream newInputStream, int newsize) 
+                                throws IOException {
 
         byte[] oldBuf = new byte[oldsize];
 
@@ -321,7 +338,8 @@ public class BSDiff {
     }
 
 
-    public static byte[] bsdiff(byte[] oldBuf, int oldsize, byte[] newBuf, int newsize) throws IOException {
+    public static byte[] bsdiff(byte[] oldBuf, int oldsize, byte[] newBuf, 
+                                int newsize) throws IOException {
 
         int[] arrayI = new int[oldsize + 1];
         qsufsort(arrayI, new int[oldsize + 1], oldBuf, oldsize);
@@ -357,7 +375,8 @@ public class BSDiff {
         ByteArrayOutputStream byteOut = new ByteArrayOutputStream();
         DataOutputStream diffOut = new DataOutputStream(byteOut);
 
-        // Write as much of header as we have now. Size of ctrlBlock and diffBlock must be filled in later.
+        // Write as much of header as we have now. Size of ctrlBlock 
+        // and diffBlock must be filled in later.
         diffOut.write(MAGIC_BYTES);
         diffOut.writeLong(-1); // place holder for ctrlBlockLen
         diffOut.writeLong(-1); // place holder for diffBlockLen
@@ -439,7 +458,9 @@ public class BSDiff {
                     ss = 0;
                     lens = 0;
                     for (i = 0; i < overlap; i++) {
-                        if (newBuf[lastscan + lenFromOld - overlap + i] == oldBuf[lastpos + lenFromOld - overlap + i]) {
+                        if (newBuf[lastscan + lenFromOld - overlap + i] == 
+                                oldBuf[lastpos + lenFromOld - overlap + i]) {
+
                             equalNum++;
                         }
                         if (newBuf[scan - lenb + i] == oldBuf[pos.value - lenb + i]) {

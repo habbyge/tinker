@@ -24,6 +24,5 @@ import com.tencent.tinker.lib.service.PatchResult;
  * Created by zhangshaowen on 16/3/15.
  */
 public abstract class AbstractPatch {
-
     public abstract boolean tryPatch(Context context, String tempPatchPath, PatchResult patchResult);
 }

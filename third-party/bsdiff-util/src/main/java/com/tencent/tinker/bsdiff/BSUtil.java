@@ -49,7 +49,9 @@ public class BSUtil {
      * Read from input stream and fill the given buffer from the given offset up
      * to length len.
      */
-    public static final boolean readFromStream(InputStream in, byte[] buf, int offset, int len) throws IOException {
+    public static final boolean readFromStream(InputStream in, byte[] buf, 
+                                               int offset, int len) throws IOException {
+
 
         int totalBytesRead = 0;
         while (totalBytesRead < len) {
@@ -69,7 +71,6 @@ public class BSUtil {
      * @throws IOException
      */
     public static byte[] inputStreamToByte(InputStream in) throws IOException {
-
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         byte[] data = new byte[BUFFER_SIZE];
         int count = -1;

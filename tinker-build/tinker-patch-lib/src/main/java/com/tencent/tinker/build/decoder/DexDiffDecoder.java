@@ -121,7 +121,8 @@ public class DexDiffDecoder extends BaseDecoder {
      * return dir/to/oldDex or dir/to/newDex if any one is not null.
      */
     protected String getRelativeDexName(File oldDexFile, File newDexFile) {
-        return oldDexFile != null ? getRelativePathStringToOldFile(oldDexFile) : getRelativePathStringToNewFile(newDexFile);
+        return oldDexFile != null ? getRelativePathStringToOldFile(oldDexFile)
+                : getRelativePathStringToNewFile(newDexFile);
     }
 
     @SuppressWarnings("NewApi")

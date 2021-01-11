@@ -331,56 +331,56 @@ public class DexDataBuffer implements ByteInput, ByteOutput {
                 }
             };
 
-            outside_whileloop:
-                while (true) {
-                    int opcode = readByte();
-                    baos.write(opcode);
-                    switch (opcode) {
-                        case DebugInfoItem.DBG_END_SEQUENCE: {
-                            break outside_whileloop;
-                        }
-                        case DebugInfoItem.DBG_ADVANCE_PC: {
-                            int addrDiff = readUleb128();
-                            Leb128.writeUnsignedLeb128(outAdapter, addrDiff);
-                            break;
-                        }
-                        case DebugInfoItem.DBG_ADVANCE_LINE: {
-                            int lineDiff = readSleb128();
-                            Leb128.writeSignedLeb128(outAdapter, lineDiff);
-                            break;
-                        }
-                        case DebugInfoItem.DBG_START_LOCAL:
-                        case DebugInfoItem.DBG_START_LOCAL_EXTENDED: {
-                            int registerNum = readUleb128();
-                            Leb128.writeUnsignedLeb128(outAdapter, registerNum);
-                            int nameIndex = readUleb128p1();
-                            Leb128.writeUnsignedLeb128p1(outAdapter, nameIndex);
-                            int typeIndex = readUleb128p1();
-                            Leb128.writeUnsignedLeb128p1(outAdapter, typeIndex);
-                            if (opcode == DebugInfoItem.DBG_START_LOCAL_EXTENDED) {
-                                int sigIndex = readUleb128p1();
-                                Leb128.writeUnsignedLeb128p1(outAdapter, sigIndex);
-                            }
-                            break;
-                        }
-                        case DebugInfoItem.DBG_END_LOCAL:
-                        case DebugInfoItem.DBG_RESTART_LOCAL: {
-                            int registerNum = readUleb128();
-                            Leb128.writeUnsignedLeb128(outAdapter, registerNum);
-                            break;
-                        }
-                        case DebugInfoItem.DBG_SET_FILE: {
-                            int nameIndex = readUleb128p1();
-                            Leb128.writeUnsignedLeb128p1(outAdapter, nameIndex);
-                            break;
-                        }
-                        case DebugInfoItem.DBG_SET_PROLOGUE_END:
-                        case DebugInfoItem.DBG_SET_EPILOGUE_BEGIN:
-                        default: {
-                            break;
-                        }
-                    }
+        outside_whileloop:
+            while (true) {
+                int opcode = readByte();
+                baos.write(opcode);
+                switch (opcode) {
+                case DebugInfoItem.DBG_END_SEQUENCE: {
+                    break outside_whileloop;
                 }
+                case DebugInfoItem.DBG_ADVANCE_PC: {
+                    int addrDiff = readUleb128();
+                    Leb128.writeUnsignedLeb128(outAdapter, addrDiff);
+                    break;
+                }
+                case DebugInfoItem.DBG_ADVANCE_LINE: {
+                    int lineDiff = readSleb128();
+                    Leb128.writeSignedLeb128(outAdapter, lineDiff);
+                    break;
+                }
+                case DebugInfoItem.DBG_START_LOCAL:
+                case DebugInfoItem.DBG_START_LOCAL_EXTENDED: {
+                    int registerNum = readUleb128();
+                    Leb128.writeUnsignedLeb128(outAdapter, registerNum);
+                    int nameIndex = readUleb128p1();
+                    Leb128.writeUnsignedLeb128p1(outAdapter, nameIndex);
+                    int typeIndex = readUleb128p1();
+                    Leb128.writeUnsignedLeb128p1(outAdapter, typeIndex);
+                    if (opcode == DebugInfoItem.DBG_START_LOCAL_EXTENDED) {
+                        int sigIndex = readUleb128p1();
+                        Leb128.writeUnsignedLeb128p1(outAdapter, sigIndex);
+                    }
+                    break;
+                }
+                case DebugInfoItem.DBG_END_LOCAL:
+                case DebugInfoItem.DBG_RESTART_LOCAL: {
+                    int registerNum = readUleb128();
+                    Leb128.writeUnsignedLeb128(outAdapter, registerNum);
+                    break;
+                }
+                case DebugInfoItem.DBG_SET_FILE: {
+                    int nameIndex = readUleb128p1();
+                    Leb128.writeUnsignedLeb128p1(outAdapter, nameIndex);
+                    break;
+                }
+                case DebugInfoItem.DBG_SET_PROLOGUE_END:
+                case DebugInfoItem.DBG_SET_EPILOGUE_BEGIN:
+                default: {
+                    break;
+                }
+                }
+            }
 
             byte[] infoSTM = baos.toByteArray();
             return new DebugInfoItem(off, lineStart, parameterNames, infoSTM);
@@ -502,7 +502,10 @@ public class DexDataBuffer implements ByteInput, ByteOutput {
             parameterAnnotations[i][1] = readInt();
         }
 
-        return new AnnotationsDirectory(off, classAnnotationsOffset, fieldAnnotations, methodAnnotations, parameterAnnotations);
+        return new AnnotationsDirectory(off, classAnnotationsOffset, 
+                                        fieldAnnotations, 
+                                        methodAnnotations, 
+                                        parameterAnnotations);
     }
 
     public EncodedValue readEncodedArray() {

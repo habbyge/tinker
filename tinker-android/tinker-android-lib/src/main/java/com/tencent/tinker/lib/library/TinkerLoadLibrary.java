@@ -180,8 +180,9 @@ public class TinkerLoadLibrary {
             } catch (Throwable throwable) {
                 // install fail, try to treat it as v23
                 // some preview N version may go here
-                TinkerLog.e(TAG, "installNativeLibraryPath, v25 fail, sdk: %d, error: %s, try to fallback to V23",
-                        Build.VERSION.SDK_INT, throwable.getMessage());
+                TinkerLog.e(TAG, 
+                    "installNativeLibraryPath, v25 fail, sdk: %d, error: %s, try to fallback to V23",
+                    Build.VERSION.SDK_INT, throwable.getMessage());
                 V23.install(classLoader, folder);
             }
         } else if (Build.VERSION.SDK_INT >= 23) {
@@ -189,7 +190,8 @@ public class TinkerLoadLibrary {
                 V23.install(classLoader, folder);
             } catch (Throwable throwable) {
                 // install fail, try to treat it as v14
-                TinkerLog.e(TAG, "installNativeLibraryPath, v23 fail, sdk: %d, error: %s, try to fallback to V14",
+                TinkerLog.e(TAG, 
+                    "installNativeLibraryPath, v23 fail, sdk: %d, error: %s, try to fallback to V14",
                     Build.VERSION.SDK_INT, throwable.getMessage());
 
                 V14.install(classLoader, folder);
@@ -209,7 +211,9 @@ public class TinkerLoadLibrary {
             libPath.append(':').append(addPath);
             pathField.set(classLoader, libPath.toString());
 
-            Field libraryPathElementsFiled = ShareReflectUtil.findField(classLoader, "libraryPathElements");
+            Field libraryPathElementsFiled = ShareReflectUtil.findField(
+                    classLoader, "libraryPathElements");
+
             List<String> libraryPathElements = (List<String>) libraryPathElementsFiled.get(classLoader);
             libraryPathElements.add(0, addPath);
             libraryPathElementsFiled.set(classLoader, libraryPathElements);
@@ -221,7 +225,9 @@ public class TinkerLoadLibrary {
             Field pathListField = ShareReflectUtil.findField(classLoader, "pathList");
             Object dexPathList = pathListField.get(classLoader);
 
-            ShareReflectUtil.expandFieldArray(dexPathList, "nativeLibraryDirectories", new File[]{folder});
+            ShareReflectUtil.expandFieldArray(dexPathList, 
+                    "nativeLibraryDirectories", 
+                    new File[]{folder});
         }
     }
 
@@ -230,20 +236,26 @@ public class TinkerLoadLibrary {
             Field pathListField = ShareReflectUtil.findField(classLoader, "pathList");
             Object dexPathList = pathListField.get(classLoader);
 
-            Field nativeLibraryDirectories = ShareReflectUtil.findField(dexPathList, "nativeLibraryDirectories");
+            Field nativeLibraryDirectories = ShareReflectUtil.findField(
+                    dexPathList, "nativeLibraryDirectories");
 
             List<File> libDirs = (List<File>) nativeLibraryDirectories.get(dexPathList);
             libDirs.add(0, folder);
             Field systemNativeLibraryDirectories =
                 ShareReflectUtil.findField(dexPathList, "systemNativeLibraryDirectories");
             List<File> systemLibDirs = (List<File>) systemNativeLibraryDirectories.get(dexPathList);
-            Method makePathElements =
-                ShareReflectUtil.findMethod(dexPathList, "makePathElements", List.class, File.class, List.class);
+            Method makePathElements = ShareReflectUtil.findMethod(dexPathList, "makePathElements", 
+                                                                  List.class, File.class, List.class);
+
             ArrayList<IOException> suppressedExceptions = new ArrayList<>();
             libDirs.addAll(systemLibDirs);
-            Object[] elements = (Object[]) makePathElements.
-                invoke(dexPathList, libDirs, null, suppressedExceptions);
-            Field nativeLibraryPathElements = ShareReflectUtil.findField(dexPathList, "nativeLibraryPathElements");
+            Object[] elements = (Object[]) makePathElements.invoke(dexPathList, 
+                                                                   libDirs, null, 
+                                                                   suppressedExceptions);
+
+            Field nativeLibraryPathElements = ShareReflectUtil.findField(
+                    dexPathList, "nativeLibraryPathElements");
+
             nativeLibraryPathElements.setAccessible(true);
             nativeLibraryPathElements.set(dexPathList, elements);
         }
@@ -254,7 +266,8 @@ public class TinkerLoadLibrary {
             Field pathListField = ShareReflectUtil.findField(classLoader, "pathList");
             Object dexPathList = pathListField.get(classLoader);
 
-            Field nativeLibraryDirectories = ShareReflectUtil.findField(dexPathList, "nativeLibraryDirectories");
+            Field nativeLibraryDirectories = ShareReflectUtil.findField(
+                    dexPathList, "nativeLibraryDirectories");
 
             List<File> libDirs = (List<File>) nativeLibraryDirectories.get(dexPathList);
             libDirs.add(0, folder);

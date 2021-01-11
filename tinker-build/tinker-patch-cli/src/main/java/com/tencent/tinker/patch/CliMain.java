@@ -73,7 +73,13 @@ public class CliMain extends Runner {
         String command = "tinker.jar"; //$NON-NLS-1$
         out.println();
         out.println();
-        out.println("Usage: java -jar " + command + " " + ARG_OLD + " old.apk " + ARG_NEW + " new.apk " + ARG_CONFIG + " tinker_config.xml " + ARG_OUT + " output_path");
+        
+        out.println("Usage: java -jar " + command + " " 
+                    + ARG_OLD + " old.apk " 
+                    + ARG_NEW + " new.apk " 
+                    + ARG_CONFIG + " tinker_config.xml " 
+                    + ARG_OUT + " output_path");
+
         out.println("others please contact us");
     }
 

@@ -46,7 +46,9 @@ public class BasePatchInternal {
     protected static final int TYPE_Library     = ShareConstants.TYPE_LIBRARY;
     protected static final int TYPE_RESOURCE    = ShareConstants.TYPE_RESOURCE;
 
-    public static boolean extract(ZipFile zipFile, ZipEntry entryFile, File extractTo, String targetMd5, boolean isDex) throws IOException {
+    public static boolean extract(ZipFile zipFile, ZipEntry entryFile, File extractTo,
+                                  String targetMd5, boolean isDex) throws IOException {
+
         int numAttempts = 0;
         boolean isExtractionSuccessful = false;
         while (numAttempts < MAX_EXTRACT_ATTEMPTS && !isExtractionSuccessful) {

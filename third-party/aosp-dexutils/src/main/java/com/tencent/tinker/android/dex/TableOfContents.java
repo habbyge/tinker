@@ -81,63 +81,63 @@ public final class TableOfContents {
 
     public Section getSectionByType(int type) {
         switch (type) {
-            case SECTION_TYPE_HEADER: {
-                return header;
-            }
-            case SECTION_TYPE_STRINGIDS: {
-                return stringIds;
-            }
-            case SECTION_TYPE_TYPEIDS: {
-                return typeIds;
-            }
-            case SECTION_TYPE_PROTOIDS: {
-                return protoIds;
-            }
-            case SECTION_TYPE_FIELDIDS: {
-                return fieldIds;
-            }
-            case SECTION_TYPE_METHODIDS: {
-                return methodIds;
-            }
-            case SECTION_TYPE_CLASSDEFS: {
-                return classDefs;
-            }
-            case SECTION_TYPE_MAPLIST: {
-                return mapList;
-            }
-            case SECTION_TYPE_TYPELISTS: {
-                return typeLists;
-            }
-            case SECTION_TYPE_ANNOTATIONSETREFLISTS: {
-                return annotationSetRefLists;
-            }
-            case SECTION_TYPE_ANNOTATIONSETS: {
-                return annotationSets;
-            }
-            case SECTION_TYPE_CLASSDATA: {
-                return classDatas;
-            }
-            case SECTION_TYPE_CODES: {
-                return codes;
-            }
-            case SECTION_TYPE_STRINGDATAS: {
-                return stringDatas;
-            }
-            case SECTION_TYPE_DEBUGINFOS: {
-                return debugInfos;
-            }
-            case SECTION_TYPE_ANNOTATIONS: {
-                return annotations;
-            }
-            case SECTION_TYPE_ENCODEDARRAYS: {
-                return encodedArrays;
-            }
-            case SECTION_TYPE_ANNOTATIONSDIRECTORIES: {
-                return annotationsDirectories;
-            }
-            default: {
-                throw new IllegalArgumentException("unknown section type: " + type);
-            }
+        case SECTION_TYPE_HEADER: {
+            return header;
+        }
+        case SECTION_TYPE_STRINGIDS: {
+            return stringIds;
+        }
+        case SECTION_TYPE_TYPEIDS: {
+            return typeIds;
+        }
+        case SECTION_TYPE_PROTOIDS: {
+            return protoIds;
+        }
+        case SECTION_TYPE_FIELDIDS: {
+            return fieldIds;
+        }
+        case SECTION_TYPE_METHODIDS: {
+            return methodIds;
+        }
+        case SECTION_TYPE_CLASSDEFS: {
+            return classDefs;
+        }
+        case SECTION_TYPE_MAPLIST: {
+            return mapList;
+        }
+        case SECTION_TYPE_TYPELISTS: {
+            return typeLists;
+        }
+        case SECTION_TYPE_ANNOTATIONSETREFLISTS: {
+            return annotationSetRefLists;
+        }
+        case SECTION_TYPE_ANNOTATIONSETS: {
+            return annotationSets;
+        }
+        case SECTION_TYPE_CLASSDATA: {
+            return classDatas;
+        }
+        case SECTION_TYPE_CODES: {
+            return codes;
+        }
+        case SECTION_TYPE_STRINGDATAS: {
+            return stringDatas;
+        }
+        case SECTION_TYPE_DEBUGINFOS: {
+            return debugInfos;
+        }
+        case SECTION_TYPE_ANNOTATIONS: {
+            return annotations;
+        }
+        case SECTION_TYPE_ENCODEDARRAYS: {
+            return encodedArrays;
+        }
+        case SECTION_TYPE_ANNOTATIONSDIRECTORIES: {
+            return annotationsDirectories;
+        }
+        default: {
+            throw new IllegalArgumentException("unknown section type: " + type);
+        }
         }
     }
 
@@ -336,63 +336,63 @@ public final class TableOfContents {
 
         private int remapTypeOrderId(int type) {
             switch (type) {
-                case SECTION_TYPE_HEADER: {
-                    return 0;
-                }
-                case SECTION_TYPE_STRINGIDS: {
-                    return 1;
-                }
-                case SECTION_TYPE_TYPEIDS: {
-                    return 2;
-                }
-                case SECTION_TYPE_PROTOIDS: {
-                    return 3;
-                }
-                case SECTION_TYPE_FIELDIDS: {
-                    return 4;
-                }
-                case SECTION_TYPE_METHODIDS: {
-                    return 5;
-                }
-                case SECTION_TYPE_CLASSDEFS: {
-                    return 6;
-                }
-                case SECTION_TYPE_STRINGDATAS: {
-                    return 7;
-                }
-                case SECTION_TYPE_TYPELISTS: {
-                    return 8;
-                }
-                case SECTION_TYPE_ANNOTATIONS: {
-                    return 9;
-                }
-                case SECTION_TYPE_ANNOTATIONSETS: {
-                    return 10;
-                }
-                case SECTION_TYPE_ANNOTATIONSETREFLISTS: {
-                    return 11;
-                }
-                case SECTION_TYPE_ANNOTATIONSDIRECTORIES: {
-                    return 12;
-                }
-                case SECTION_TYPE_DEBUGINFOS: {
-                    return 13;
-                }
-                case SECTION_TYPE_CODES: {
-                    return 14;
-                }
-                case SECTION_TYPE_CLASSDATA: {
-                    return 15;
-                }
-                case SECTION_TYPE_ENCODEDARRAYS: {
-                    return 16;
-                }
-                case SECTION_TYPE_MAPLIST: {
-                    return 17;
-                }
-                default: {
-                    throw new IllegalArgumentException("unknown section type: " + type);
-                }
+            case SECTION_TYPE_HEADER: {
+                return 0;
+            }
+            case SECTION_TYPE_STRINGIDS: {
+                return 1;
+            }
+            case SECTION_TYPE_TYPEIDS: {
+                return 2;
+            }
+            case SECTION_TYPE_PROTOIDS: {
+                return 3;
+            }
+            case SECTION_TYPE_FIELDIDS: {
+                return 4;
+            }
+            case SECTION_TYPE_METHODIDS: {
+                return 5;
+            }
+            case SECTION_TYPE_CLASSDEFS: {
+                return 6;
+            }
+            case SECTION_TYPE_STRINGDATAS: {
+                return 7;
+            }
+            case SECTION_TYPE_TYPELISTS: {
+                return 8;
+            }
+            case SECTION_TYPE_ANNOTATIONS: {
+                return 9;
+            }
+            case SECTION_TYPE_ANNOTATIONSETS: {
+                return 10;
+            }
+            case SECTION_TYPE_ANNOTATIONSETREFLISTS: {
+                return 11;
+            }
+            case SECTION_TYPE_ANNOTATIONSDIRECTORIES: {
+                return 12;
+            }
+            case SECTION_TYPE_DEBUGINFOS: {
+                return 13;
+            }
+            case SECTION_TYPE_CODES: {
+                return 14;
+            }
+            case SECTION_TYPE_CLASSDATA: {
+                return 15;
+            }
+            case SECTION_TYPE_ENCODEDARRAYS: {
+                return 16;
+            }
+            case SECTION_TYPE_MAPLIST: {
+                return 17;
+            }
+            default: {
+                throw new IllegalArgumentException("unknown section type: " + type);
+            }
             }
         }
 

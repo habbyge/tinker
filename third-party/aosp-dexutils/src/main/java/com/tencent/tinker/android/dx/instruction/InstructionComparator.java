@@ -61,7 +61,9 @@ public abstract class InstructionComparator {
         InstructionReader ir = new InstructionReader(in);
         try {
             ir.accept(new InstructionVisitor(null) {
-                public void visitZeroRegisterInsn(int currentAddress, int opcode, int index, int indexType, int target, long literal) {
+                public void visitZeroRegisterInsn(int currentAddress, int opcode, int index, 
+                                                  int indexType, int target, long literal) {
+
                     InstructionHolder insnHolder = new InstructionHolder();
                     insnHolder.insnFormat = InstructionCodec.getInstructionFormat(opcode);
                     insnHolder.address = currentAddress;
@@ -72,7 +74,9 @@ public abstract class InstructionComparator {
                     result[currentAddress] = insnHolder;
                 }
 
-                public void visitOneRegisterInsn(int currentAddress, int opcode, int index, int indexType, int target, long literal, int a) {
+                public void visitOneRegisterInsn(int currentAddress, int opcode, int index, 
+                                                 int indexType, int target, long literal, int a) {
+
                     InstructionHolder insnHolder = new InstructionHolder();
                     insnHolder.insnFormat = InstructionCodec.getInstructionFormat(opcode);
                     insnHolder.address = currentAddress;
@@ -85,7 +89,10 @@ public abstract class InstructionComparator {
                     result[currentAddress] = insnHolder;
                 }
 
-                public void visitTwoRegisterInsn(int currentAddress, int opcode, int index, int indexType, int target, long literal, int a, int b) {
+                public void visitTwoRegisterInsn(int currentAddress, int opcode, int index, 
+                                                 int indexType, int target, long literal, 
+                                                 int a, int b) {
+
                     InstructionHolder insnHolder = new InstructionHolder();
                     insnHolder.insnFormat = InstructionCodec.getInstructionFormat(opcode);
                     insnHolder.address = currentAddress;
@@ -99,7 +106,10 @@ public abstract class InstructionComparator {
                     result[currentAddress] = insnHolder;
                 }
 
-                public void visitThreeRegisterInsn(int currentAddress, int opcode, int index, int indexType, int target, long literal, int a, int b, int c) {
+                public void visitThreeRegisterInsn(int currentAddress, int opcode, int index, 
+                                                   int indexType, int target, long literal, 
+                                                   int a, int b, int c) {
+                                                       
                     InstructionHolder insnHolder = new InstructionHolder();
                     insnHolder.insnFormat = InstructionCodec.getInstructionFormat(opcode);
                     insnHolder.address = currentAddress;
@@ -114,7 +124,10 @@ public abstract class InstructionComparator {
                     result[currentAddress] = insnHolder;
                 }
 
-                public void visitFourRegisterInsn(int currentAddress, int opcode, int index, int indexType, int target, long literal, int a, int b, int c, int d) {
+                public void visitFourRegisterInsn(int currentAddress, int opcode, int index, 
+                                                  int indexType, int target, long literal, 
+                                                  int a, int b, int c, int d) {
+
                     InstructionHolder insnHolder = new InstructionHolder();
                     insnHolder.insnFormat = InstructionCodec.getInstructionFormat(opcode);
                     insnHolder.address = currentAddress;
@@ -130,7 +143,10 @@ public abstract class InstructionComparator {
                     result[currentAddress] = insnHolder;
                 }
 
-                public void visitFiveRegisterInsn(int currentAddress, int opcode, int index, int indexType, int target, long literal, int a, int b, int c, int d, int e) {
+                public void visitFiveRegisterInsn(int currentAddress, int opcode, int index, 
+                                                  int indexType, int target, long literal, 
+                                                  int a, int b, int c, int d, int e) {
+                                                      
                     InstructionHolder insnHolder = new InstructionHolder();
                     insnHolder.insnFormat = InstructionCodec.getInstructionFormat(opcode);
                     insnHolder.address = currentAddress;
@@ -160,8 +176,12 @@ public abstract class InstructionComparator {
                     result[currentAddress] = insnHolder;
                 }
 
-                public void visitSparseSwitchPayloadInsn(int currentAddress, int opcode, int[] keys, int[] targets) {
-                    SparseSwitchPayloadInsntructionHolder insnHolder = new SparseSwitchPayloadInsntructionHolder();
+                public void visitSparseSwitchPayloadInsn(int currentAddress, int opcode, 
+                                                         int[] keys, int[] targets) {
+
+                    SparseSwitchPayloadInsntructionHolder insnHolder = 
+                            new SparseSwitchPayloadInsntructionHolder();
+
                     insnHolder.insnFormat = InstructionCodec.getInstructionFormat(opcode);
                     insnHolder.address = currentAddress;
                     insnHolder.opcode = opcode;
@@ -170,8 +190,12 @@ public abstract class InstructionComparator {
                     result[currentAddress] = insnHolder;
                 }
 
-                public void visitPackedSwitchPayloadInsn(int currentAddress, int opcode, int firstKey, int[] targets) {
-                    PackedSwitchPayloadInsntructionHolder insnHolder = new PackedSwitchPayloadInsntructionHolder();
+                public void visitPackedSwitchPayloadInsn(int currentAddress, int opcode, 
+                                                         int firstKey, int[] targets) {
+
+                    PackedSwitchPayloadInsntructionHolder insnHolder 
+                            = new PackedSwitchPayloadInsntructionHolder();
+
                     insnHolder.insnFormat = InstructionCodec.getInstructionFormat(opcode);
                     insnHolder.address = currentAddress;
                     insnHolder.opcode = opcode;
@@ -180,8 +204,12 @@ public abstract class InstructionComparator {
                     result[currentAddress] = insnHolder;
                 }
 
-                public void visitFillArrayDataPayloadInsn(int currentAddress, int opcode, Object data, int size, int elementWidth) {
-                    FillArrayDataPayloadInstructionHolder insnHolder = new FillArrayDataPayloadInstructionHolder();
+                public void visitFillArrayDataPayloadInsn(int currentAddress, int opcode, 
+                                                          Object data, int size, int elementWidth) {
+
+                    FillArrayDataPayloadInstructionHolder insnHolder = 
+                            new FillArrayDataPayloadInstructionHolder();
+                            
                     insnHolder.insnFormat = InstructionCodec.getInstructionFormat(opcode);
                     insnHolder.address = currentAddress;
                     insnHolder.opcode = opcode;

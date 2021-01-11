@@ -54,11 +54,11 @@ public class TinkerSevenZipExtension {
 
         if (this.zipArtifact != null) {
             def groupId, finalArtifact, version
-            Configuration config = project.configurations.create("sevenZipToolsLocator") {
-                visible = false
-                transitive = false
-                extendsFrom = []
-            }
+//            Configuration config = project.configurations.create("sevenZipToolsLocator") {
+//                visible = false
+//                transitive = false
+//                extendsFrom = []
+//            }
 
             (groupId, finalArtifact, version) = this.zipArtifact.split(":")
             def notation = [group     : groupId,

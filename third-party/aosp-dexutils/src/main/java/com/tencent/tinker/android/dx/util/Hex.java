@@ -119,7 +119,6 @@ public final class Hex {
             result[1 - i] = Character.forDigit(v & 0x0f, 16);
             v >>= 4;
         }
-
         return new String(result);
     }
 
